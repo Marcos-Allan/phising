@@ -171,7 +171,7 @@ function App() {
           <p className='lg:hidden mt-6 w-full text-center text-[#3483FA] font-bold cursor-pointer hover:underline'>Preciso de ajuda com outros temas</p>
         </div>
           
-        <div className='w-full text-[12px] py-6 flex flex-row flex-wrap items-center justify-center text-center bg-[#f1f1f1] absolute bottom-0 md:text-[10px] md:justify-between md:px-6'>
+        <div className='w-full text-[12px] py-6 flex flex-row flex-wrap items-center justify-center text-center bg-[#f1f1f1] fixed bottom-0 md:text-[10px] md:justify-between md:px-6'>
           
           <div className='flex flex-col justify-center items-center md:flex-row md:justify-start md:items-center'>
             <div className='w-full sm:w-auto mx-4 md:mx-0 md:mr-2'>
