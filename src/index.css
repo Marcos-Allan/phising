@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'ProximaNovaRegular';
+    src: url('./assets/Proxima Nova Regular.ttf');
+    font-weight: normal;  /* Opcional: define el peso */
+    font-style: normal;   /* Opcional: define el estilo */
+}
+
+* {
+    font-family: 'ProximaNovaRegular', cursive;
+}
