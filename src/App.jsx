@@ -14,9 +14,9 @@ function App() {
 
   const handleResize = () => {
     if (window.innerWidth >= 1024) {
-      setWid(104);
-    } else {
       setWid(44);
+    } else {
+      setWid(14);
     }
   };
 
@@ -33,6 +33,11 @@ function App() {
   return (
     <div className="w-screen h-screen flex flex-col items-center justify-start overflow-hidden bg-[#ffffff]">
       <div className='w-full h-[48px] flex items-center justify-start bg-[#FFF159] lg:bg-[#FFE600] px-2'>
+        {wid == 44 ? (
+          <img src={logo_lg} alt="logo com nome do lado" className={`w-[44px]`} />
+        ):(
+          <img src={logo} alt="logo com nome do lado" className={`w-[104px]`} />
+        )}
         <picture>
           <source media="(max-width: 1023px)" srcset={logo} />
           
