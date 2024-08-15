@@ -34,15 +34,10 @@ function App() {
     <div className="w-screen h-screen flex flex-col items-center justify-start overflow-hidden bg-[#ffffff]">
       <div className='w-full h-[48px] flex items-center justify-start bg-[#FFF159] lg:bg-[#FFE600] px-2'>
         {wid == 44 ? (
-          <img src={logo_lg} alt="logo com nome do lado" className={`w-[44px]`} />
+          <img src={logo_lg} alt="logo com nome do lado" className={`w-[40px]`} />
         ):(
-          <img src={logo} alt="logo com nome do lado" className={`w-[104px]`} />
+          <img src={logo} alt="logo com nome do lado" className={`w-[80px]`} />
         )}
-        <picture>
-          <source media="(max-width: 1023px)" srcset={logo} />
-          
-          <img src={logo_lg} alt="logo com nome do lado" className={`w-[${wid}px]`} />
-        </picture>
       </div>
       
       <div className='w-[90%] flex justify-start items-center flex-col lg:flex-row lg:items-start lg:justify-center lg:gap-10 lg:mt-10'>
