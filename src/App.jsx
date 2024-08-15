@@ -34,9 +34,9 @@ function App() {
     <div className="w-screen h-screen flex flex-col items-center justify-start overflow-hidden bg-[#ffffff]">
       <div className='w-full h-[48px] flex items-center justify-start bg-[#FFF159] lg:bg-[#FFE600] px-2'>
         {wid == 44 ? (
-          <img src={logo_lg} alt="logo com nome do lado" className={`w-[36px]`} />
+          <img src={logo} alt="logo com nome do lado" className={`w-[44px]`} />
         ):(
-          <img src={logo} alt="logo com nome do lado" className={`w-[104px]`} />
+          <img src={logo_lg} alt="logo com nome do lado" className={`w-[104px]`} />
         )}
       </div>
       
